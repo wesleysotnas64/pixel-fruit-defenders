@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,14 +5,17 @@ public class PlayerController : MonoBehaviour
     public Vector3 direction;
     public float speed;
     private Move playerMove;
+    private ProjectileManager projectileManager;
     void Start()
     {
         playerMove = GetComponent<Move>();
+        projectileManager = GetComponent<ProjectileManager>();
     }
 
     void Update()
     {
         Movement();
+        Shooting();
     }
 
     private void Movement()
@@ -27,5 +28,10 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKey(KeyCode.D)) direction += new Vector3( 1,  0, 0);
 
         playerMove.SetMovement(direction, speed);
+    }
+
+    private void Shooting()
+    {
+        if(Input.GetKeyDown(KeyCode.Space)) projectileManager.Shot();
     }
 }
